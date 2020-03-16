@@ -1,60 +1,129 @@
-import React,{Component} from "react";
-import {
-  StyleSheet,
-  View,
-  Text,
-  TouchableOpacity,
-  Platform,
-  Button,
-  PermissionsAndroid
-} from "react-native";
-import {goToScreen} from './src/utils/navigation'
+import { Navigation } from "react-native-navigation";
+import {Provider} from 'react-redux';
+import AsyncStorage from '@react-native-community/async-storage';
+import {store} from './src/reducers/index';
+import App from "./App";
+import Signup from "./src/screens/signup";
+import Client from "./src/screens/mainClient";
+import Captin from "./src/screens/mainDriver";
+import Login from "./src/screens/login";
+
+export const startApp= function(){
+  Navigation.registerComponentWithRedux(`WelcomeScreen`, () => App, Provider, store);
+  Navigation.registerComponentWithRedux(`Signup`, () => Signup, Provider, store);
+  Navigation.registerComponentWithRedux(`Client`, () => Client, Provider, store);
+  Navigation.registerComponentWithRedux(`Captin`, () => Captin, Provider, store);
+  Navigation.registerComponentWithRedux(`Login`, () => Login, Provider, store);
+
+// console.log("jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj",root);
 
 
-class App extends Component {
- 
 
-  render() {
-    return (
-      <View >
-                <TouchableOpacity style={styles.button} onPress={()=>goToScreen('Client')}> 
-                    <Text style={styles.buttonText} >Client</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.button} onPress={()=>goToScreen('Captin')}> 
-                    <Text style={styles.buttonText} >Captin</Text>
-                </TouchableOpacity>
-      </View>
-    );
-  }
-}
-
-const styles = StyleSheet.create({
-  container: {
-      justifyContent: 'center',
-      alignItems: 'center',
+ Navigation.events().registerAppLaunchedListener(async() => {
+ Navigation.setDefaultOptions({
+  statusBar: {
+    visible: true,
+    backgroundColor: '#061114',
+    style: 'white'
   },
-  inputBox: {
-      width: 300,
-      backgroundColor: '#eeeeee', 
-      borderRadius: 25,
-      paddingHorizontal: 16,
-      fontSize: 16,
-      color: '#002f6c',
-      marginVertical: 10
+  topBar: {
+    drawBehind: true,
+    visible: false,
+    animate: false,
   },
-  button: {
-      width: 300,
-      backgroundColor: '#4f83cc',
-      borderRadius: 25,
-      marginVertical: 10,
-      paddingVertical: 12
+  layout: {
+    backgroundColor: 'white',
+    orientation: ['portrait'],
   },
-  buttonText: {
-      fontSize: 16,
-      fontWeight: '500',
-      color: '#ffffff',
-      textAlign: 'center'
-  }
+  animations: {
+    push: {
+      waitForRender: true,
+    },
+    showModal: {
+      waitForRender: true,
+    },
+  },
 });
 
-export default App;
+let user=await AsyncStorage.getItem('user')
+let parse_user =JSON.parse(user)
+
+if(!parse_user){
+  Navigation.setRoot({
+    root: {
+      stack: {
+        id:'AppStack',
+        children:[
+          {
+            component:{
+              name: 'Login'
+            }
+          }
+        ]
+       
+      }
+    }
+  });
+}
+else{
+if(parse_user.type=='CLIENT')
+  {
+    Navigation.setRoot({
+      root: {
+        stack: {
+          id:'AppStack',
+          children:[
+            {
+              component:{
+                name: 'Client'
+              }
+            }
+          ]
+         
+        }
+      }
+    });
+  }
+  else if(parse_user.type=='DRIVER'){
+    Navigation.setRoot({
+      root: {
+        stack: {
+          id:'AppStack',
+          children:[
+            {
+              component:{
+                name: 'Captin'
+              }
+            }
+          ]
+         
+        }
+      }
+    });
+  }
+  else{
+    Navigation.setRoot({
+      root: {
+        stack: {
+          id:'AppStack',
+          children:[
+            {
+              component:{
+                name: 'Login'
+              }
+            }
+          ]
+         
+        }
+      }
+    });
+  }
+ }
+
+
+
+ 
+});
+console.log("jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj");
+
+}

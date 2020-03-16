@@ -7,6 +7,7 @@ import {
   StyleSheet,
   View,
   Text,
+  Image,
   TextInput,
   TouchableOpacity,
   StatusBar,
@@ -64,11 +65,15 @@ class signup extends Component{
 render() {
         return(
             <View style={styles.container}>
+                <Image style={styles.fixed} source={require('../imgs/taxi.jpg')}>
+
+                </Image>
+                <View style={{top:height*0.2}}>
                 <TextInput style={styles.inputBox}
                 onChange={(event) => {this.setState({name: event.nativeEvent.text})}}
                 underlineColorAndroid='rgba(0,0,0,0)' 
                 placeholder="Name"
-                placeholderTextColor = "#002f6c"
+                placeholderTextColor = "#fff"
                 selectionColor="#fff"
                 keyboardType="email-address"
                 />
@@ -76,7 +81,7 @@ render() {
                 onChange={(event) => {this.setState({email: event.nativeEvent.text})}}
                 underlineColorAndroid='rgba(0,0,0,0)' 
                 placeholder="Email"
-                placeholderTextColor = "#002f6c"
+                placeholderTextColor = "#fff"
                 selectionColor="#fff"
                 keyboardType="email-address"
                 />
@@ -85,7 +90,7 @@ render() {
                 onChange={(event) => {this.setState({phone: event.nativeEvent.text})}}
                 underlineColorAndroid='rgba(0,0,0,0)' 
                 placeholder="Phone"
-                placeholderTextColor = "#002f6c"
+                placeholderTextColor = "#fff"
                 selectionColor="#fff"
                 keyboardType="numeric"
                 />
@@ -95,7 +100,7 @@ render() {
                 underlineColorAndroid='rgba(0,0,0,0)' 
                 placeholder="Password"
                 secureTextEntry={true}
-                placeholderTextColor = "#002f6c"
+                placeholderTextColor = "#fff"
                 ref={(input) => this.password = input}
                 />
                 <TextInput style={styles.inputBox}
@@ -103,13 +108,17 @@ render() {
                 underlineColorAndroid='rgba(0,0,0,0)' 
                 placeholder="Confirm Password"
                 secureTextEntry={true}
-                placeholderTextColor = "#002f6c"
+                placeholderTextColor = "#fff"
                 ref={(input) => this.confirmPassword = input}
                 />
  
                 <TouchableOpacity style={styles.button}> 
                     <Text style={styles.buttonText} onPress={()=>this.signup()}>Sign up</Text>
                 </TouchableOpacity>
+                <TouchableOpacity > 
+                    <Text style={{color:"white",alignSelf:"center"}} onPress={()=>goToScreen('Login')}>Login?</Text>
+                </TouchableOpacity>
+                </View>
             </View>
             
         )
@@ -123,17 +132,29 @@ const styles = StyleSheet.create({
     },
     inputBox: {
         width: 300,
-        backgroundColor: '#eeeeee', 
-        borderRadius: 25,
-        paddingHorizontal: 16,
+        backgroundColor: 'transparent', 
+        borderRadius: 0,
+        // paddingHorizontal: 16,
         fontSize: 16,
-        color: '#002f6c',
-        marginVertical: 10
+        color: '#fff',
+        marginVertical: 10,
+        borderBottomWidth:2,
+        borderBottomColor:"#ffc64d"
+    },
+    fixed:{
+        width: Dimensions.get("window").width,
+    height: Dimensions.get("window").height, 
+        zIndex: -1,
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0
     },
     button: {
         width: 300,
-        backgroundColor: '#4f83cc',
-        borderRadius: 25,
+        backgroundColor: '#253746',
+        borderRadius: 5,
         marginVertical: 10,
         paddingVertical: 12
     },
