@@ -40,6 +40,8 @@ target 'UBER' do
 
   pod 'react-native-maps', :path => '../node_modules/react-native-maps'
 
+  pod 'react-native-fbsdk', :path => '../node_modules/react-native-fbsdk'
+
   target 'UBERTests' do
     inherit! :search_paths
     # Pods for testing

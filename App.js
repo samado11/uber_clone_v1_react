@@ -7,8 +7,23 @@ import Signup from "./src/screens/signup";
 import Client from "./src/screens/mainClient";
 import Captin from "./src/screens/mainDriver";
 import Login from "./src/screens/login";
+import firebase from 'firebase';
 
 export const startApp= function(){
+
+  var firebaseConfig = {
+    apiKey: "AIzaSyBEBnY-mLtXbzEJP1326qIJoQcaxdSxOPg",
+    authDomain: "uber-e1d9c.firebaseapp.com",
+    databaseURL: "https://uber-e1d9c-default-rtdb.firebaseio.com",
+    projectId: "uber-e1d9c",
+    storageBucket: "uber-e1d9c.appspot.com",
+    messagingSenderId: "948683507610",
+    appId: "1:948683507610:web:07974658b8c001a86a1c23",
+    measurementId: "G-S5W7QKG20K"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
   Navigation.registerComponentWithRedux(`WelcomeScreen`, () => App, Provider, store);
   Navigation.registerComponentWithRedux(`Signup`, () => Signup, Provider, store);
   Navigation.registerComponentWithRedux(`Client`, () => Client, Provider, store);
@@ -47,80 +62,38 @@ export const startApp= function(){
 
 let user=await AsyncStorage.getItem('user')
 let parse_user =JSON.parse(user)
-
+let ScreenName = 'Login'
 if(!parse_user){
-  Navigation.setRoot({
-    root: {
-      stack: {
-        id:'AppStack',
-        children:[
-          {
-            component:{
-              name: 'Login'
-            }
-          }
-        ]
-       
-      }
-    }
-  });
+   ScreenName='Login'
 }
 else{
 if(parse_user.type=='CLIENT')
   {
-    Navigation.setRoot({
-      root: {
-        stack: {
-          id:'AppStack',
-          children:[
-            {
-              component:{
-                name: 'Client'
-              }
-            }
-          ]
-         
-        }
-      }
-    });
+    ScreenName='Client'
   }
   else if(parse_user.type=='DRIVER'){
-    Navigation.setRoot({
-      root: {
-        stack: {
-          id:'AppStack',
-          children:[
-            {
-              component:{
-                name: 'Captin'
-              }
-            }
-          ]
-         
-        }
-      }
-    });
+    ScreenName='Captin'
   }
   else{
-    Navigation.setRoot({
-      root: {
-        stack: {
-          id:'AppStack',
-          children:[
-            {
-              component:{
-                name: 'Login'
-              }
-            }
-          ]
-         
-        }
-      }
-    });
+   ScreenName='Login'
   }
  }
 
-
+ Navigation.setRoot({
+  root: {
+    stack: {
+      id:'AppStack',
+      children:[
+        {
+          component:{
+            name: ScreenName
+          }
+        }
+      ]
+     
+    }
+  }
+});
 
  
 });

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Taxi</string>
+    <string name="facebook_app_id">538773277061136</string>
+<string name="fb_login_protocol_scheme">fb538773277061136</string>
 </resources>

@@ -12,100 +12,110 @@ import {
   TouchableOpacity,
   StatusBar,
   Image,
-  Dimensions
+  Dimensions,
+  Button
 } from 'react-native';
 import { connect } from 'react-redux';
 import {store} from '../reducers/index';
+import auth from '@react-native-firebase/auth';
+import { LoginManager, AccessToken } from 'react-native-fbsdk';
 const {width,height}=Dimensions.get('window')
 let token
 let user
 
+async function onFacebookButtonPress() {
+  try{
+  // Attempt login with permissions
+  const result = await LoginManager.logInWithPermissions(['public_profile', 'email']);
+
+  if (result.isCancelled) {
+    throw 'User cancelled the login process';
+  }
+
+  // Once signed in, get the users AccesToken
+  const data = await AccessToken.getCurrentAccessToken();
+
+  if (!data) {
+    throw 'Something went wrong obtaining access token';
+  }
+
+  // Create a Firebase credential with the AccessToken
+  const facebookCredential = auth.FacebookAuthProvider.credential(data.accessToken);
+
+  // Sign-in the user with the credential
+  return auth().signInWithCredential(facebookCredential);
+}
+catch(error){
+    console.log(error)
+}
+}
 
 class login extends Component{
 
     constructor(props){
-        super(props);
-        
-
-
-         
+        super(props);         
     }
-    async login() {
-        try{
-        console.log(this.state);
-        const { email, password } = this.state;
-        const data= {
-            email:email,
-            password: password
-          }
-        await axios.post('https://uber-2.herokuapp.com/user/usersignin',data, { headers: {
-            'Content-Type': 'application/json',
-            'Accept-Language': 'ar'
-          }}).then(async(data) => {
-            // console.log(data);
-            user=data.data.user
-            token=data.data.token
-            await AsyncStorage.setItem('user', JSON.stringify(data.data.user))
-            await AsyncStorage.setItem('token', JSON.stringify(data.data.token))
-            let x = await AsyncStorage.getItem('user');
-            console.log("kkkkk ",x);
+
+    // async login() {
+    //     try{
+    //     console.log(this.state);
+    //     const { email, password } = this.state;
+    //     const data= {
+    //         email:email,
+    //         password: password
+    //       }
+    //     await axios.post('https://uber-2.herokuapp.com/user/usersignin',data, { headers: {
+    //         'Content-Type': 'application/json',
+    //         'Accept-Language': 'ar'
+    //       }}).then(async(data) => {
+    //         // console.log(data);
+    //         user=data.data.user
+    //         token=data.data.token
+    //         await AsyncStorage.setItem('user', JSON.stringify(data.data.user))
+    //         await AsyncStorage.setItem('token', JSON.stringify(data.data.token))
+    //         let x = await AsyncStorage.getItem('user');
+    //         console.log("kkkkk ",x);
             
-            store.dispatch({type: 'LOGGED_IN', payload:{token:data.data.token,user:data.data.user}})
-            // console.log(await AsyncStorage.getItem('User'))
-            console.log(data.data.user.type);
-            if(data.data.user.type=="DRIVER"){
-                goToScreen('Captin')
-            }
-            else{
-                goToScreen('Client') 
-            }
+    //         store.dispatch({type: 'LOGGED_IN', payload:{token:data.data.token,user:data.data.user}})
+    //         // console.log(await AsyncStorage.getItem('User'))
+    //         console.log(data.data.user.type);
+    //         if(data.data.user.type=="DRIVER"){
+    //             goToScreen('Captin')
+    //         }
+    //         else{
+    //             goToScreen('Client') 
+    //         }
             
-          }).catch((error)=>{
-             console.log(error);
-             alert(error.response.data);
-          });
+    //       }).catch((error)=>{
+    //          console.log(error);
+    //          alert(error.response.data);
+    //       });
           
-        }
-        catch(error){
-            console.log('There has been a problem with your fetch operation')
-        }
-    }
+    //     }
+    //     catch(error){
+    //         console.log('There has been a problem with your fetch operation')
+    //     }
+    // }
 
 render() {
-        return(
-            <View style={styles.container}>
-                <Image style={styles.fixed} source={require('../imgs/taxi.jpg')}>
+    return (
 
-                </Image>
-                <View style={{top:height*0.2}}>
-                <TextInput style={styles.inputBox}
-                onChangeText={(email) => this.setState({email})}
-                underlineColorAndroid='rgba(0,0,0,0)' 
-                placeholder="Email"
-                placeholderTextColor = "#fff"
-                selectionColor="#fff"
-                keyboardType="email-address"
-                onSubmitEditing={()=> this.password.focus()}/>
-                
-                <TextInput style={styles.inputBox}
-                onChangeText={(password) => this.setState({password})} 
-                underlineColorAndroid='rgba(0,0,0,0)' 
-                placeholder="Password"
-                secureTextEntry={true}
-                placeholderTextColor = "#fff"
-                ref={(input) => this.password = input}
-                />
- 
-                <TouchableOpacity onPress={()=>this.login()} style={styles.button}> 
-                    <Text style={styles.buttonText} onPress={this.saveData}>Login</Text>
-                </TouchableOpacity>
-                <TouchableOpacity > 
-                    <Text style={{color:"white",alignSelf:"center"}}  onPress={()=>goToScreen('Signup')}>Signup?</Text>
-                </TouchableOpacity>
-                </View>
-            </View>
-            
-        )
+        <View style={styles.container}>
+          <Image style={styles.fixed} source={require('../imgs/taxi.jpg')}>
+    
+          </Image>
+          <View style={{top:height*0.2}}>
+    
+        <Button
+          title="Facebook Login"
+          onPress={ () => onFacebookButtonPress().then((d) =>{ 
+          console.log(d);
+          goToScreen('Client')})}
+        />
+        </View>
+        </View>
+    
+      );
 }
 }
 
