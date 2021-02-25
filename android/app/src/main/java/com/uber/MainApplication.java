@@ -15,6 +15,8 @@ import com.reactnativenavigation.NavigationApplication;
 import com.reactnativenavigation.react.NavigationReactNativeHost;
 import com.reactnativenavigation.react.ReactGateway;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
+import io.invertase.firebase.app.ReactNativeFirebaseAppPackage;
+import io.invertase.firebase.auth.ReactNativeFirebaseAuthPackage;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
@@ -45,7 +47,9 @@ import java.util.Arrays;
              new GeolocationPackage(),
              new AsyncStoragePackage(),
              new MapsPackage(),
-             new FBSDKPackage()
+             new FBSDKPackage(),
+             new ReactNativeFirebaseAppPackage(),
+             new ReactNativeFirebaseAuthPackage()
          );
      }
  
