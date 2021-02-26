@@ -4,10 +4,11 @@ const initialState = {
     isAuthenticated: localStorage.getItem('token') ? true : false,
     user: localStorage.getItem('user'),
     token: localStorage.getItem('token'),
-    typ: localStorage.getItem('type')
+    typ: "CLIENT"
 }
 
 export default  (state = initialState, action) => {
+    console.log(action);
     switch (action.type) {
         case 'LOGGED_IN':
             return {
@@ -16,7 +17,9 @@ export default  (state = initialState, action) => {
                 token: action.payload.token
             }
         case 'SET_TYPE':
+            console.log("lllllllllllllllllllllllllllll");
             return {
+                ...state,
                 typ: action.payload.typ
             }
         case 'LOGGED_OUT':

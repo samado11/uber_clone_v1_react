@@ -7,7 +7,7 @@ import {store} from '../reducers/index';
 
 
 let token
-let user
+let user,typ
 
 const {width,height}=Dimensions.get('window')
 
@@ -42,7 +42,7 @@ const UserTypes = (props) => {
       onPress={() =>
         {
           
-          store.dispatch({type: 'SET_TYPE', payload: 'DRIVER'});
+          store.dispatch({type: 'SET_TYPE', payload:{typ:'DRIVER'} });
           goToScreen('Login')
       }}
     >
@@ -54,7 +54,7 @@ const UserTypes = (props) => {
     <TouchableOpacity
        style={styles.button}
       onPress={() =>  {
-        store.dispatch({type: 'SET_TYPE', payload: 'CLIENT'});
+        store.dispatch({type: 'SET_TYPE',payload:{typ:'CLIENT'} });
           goToScreen('Login')
         
         }}
@@ -106,7 +106,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({
   user: user,
-  token: token
+  token: token,
+  typ:typ
 })
 
 export default connect(mapStateToProps)(UserTypes)

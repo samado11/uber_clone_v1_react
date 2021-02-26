@@ -21,8 +21,6 @@ import {store} from '../reducers/index';
 import auth from '@react-native-firebase/auth';
 import { LoginManager, AccessToken } from 'react-native-fbsdk';
 const {width,height}=Dimensions.get('window')
-let token
-let user
 
 async function onFacebookButtonPress() {
   try{
@@ -98,9 +96,11 @@ class login extends Component{
     //     }
     // }
 
-render() {
-    return (
 
+render() {
+  const { user, token,typ } = this.props;
+    return (
+        
         <View style={styles.container}>
           <Image style={styles.fixed} source={require('../imgs/taxi.jpg')}>
     
@@ -113,8 +113,8 @@ render() {
       button
       type="facebook"
       onPress={ () => onFacebookButtonPress().then((d) =>{ 
-        console.log(store.getState());
-        if(store.getState().typ=="CLIENT")
+        console.log(typ);
+        if(typ=="CLIENT")
           {goToScreen('Client')}
         else
         {goToScreen('Captin')}
@@ -205,10 +205,9 @@ const styles = StyleSheet.create({
 });
 
 
-
-  const mapStateToProps = state => ({
-    user: user,
-    token: token
-})
-
+const mapStateToProps = ({ user, token,typ }) => ({
+  user: user,
+  token: token,
+  typ:typ
+});
 export default connect(mapStateToProps)(login)

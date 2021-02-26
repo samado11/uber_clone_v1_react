@@ -53,9 +53,9 @@ class AnimatedMarkers extends React.Component {
         longitudeDelta: LONGITUDE_DELTA
       })
     };
-    suser = this.props.user;
-    user = JSON.parse(suser['_55'])
-    console.log("lllllll ",user.id);
+    // suser = this.props.user;
+    // user = JSON.parse(suser['_55'])
+    // console.log("lllllll ",user.id);
     
   }
 
