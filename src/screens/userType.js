@@ -1,14 +1,18 @@
 import React,{useEffect, useContext,  useState } from 'react';
-import { Image,View, Text ,Dimensions,Button } from 'react-native';
-import styles from './styles'
+import { Image,View, Text ,Dimensions,Button ,StyleSheet,TouchableOpacity} from 'react-native';
 import firebase from 'firebase';
-import {Context } from '../../utils/store'
-import {goToScreen} from '../../utils/navigation'
+import {goToScreen} from '../utils/navigation'
+import { connect } from 'react-redux';
+import {store} from '../reducers/index';
+
+
+let token
+let user
 
 const {width,height}=Dimensions.get('window')
 
 const UserTypes = (props) => {
-
+ 
     const writeUserData=(id,lang,lat)=>{
         firebase.database().ref('Locs/').set({
             id,
@@ -24,33 +28,41 @@ const UserTypes = (props) => {
     }
           
 
-
-    const {state, dispatch} = useContext(Context);
   return (
     
     <View style={styles.container}>
-      <Image style={styles.fixed} source={require('../../assets/images/taxi.jpg')}>
+      <Image style={styles.fixed} source={require('../imgs/taxi.jpg')}>
 
       </Image>
-      <View style={{top:height*0.2}}>
-    <Button
-      
-      title="Driver"
+      <View >
+
+    <TouchableOpacity
+      style={styles.button}
+
       onPress={() =>
         {
           
-          dispatch({type: 'SET_TYPE', payload: 'DRIVER'});
+          store.dispatch({type: 'SET_TYPE', payload: 'DRIVER'});
           goToScreen('Login')
       }}
-    />
-    <Button
-      title="Client"
+    >
+<Text style = {styles.buttonText}>
+       Driver
+   </Text>
+</TouchableOpacity >
+
+    <TouchableOpacity
+       style={styles.button}
       onPress={() =>  {
-          dispatch({type: 'SET_TYPE', payload: 'CLIENT'});
+        store.dispatch({type: 'SET_TYPE', payload: 'CLIENT'});
           goToScreen('Login')
         
         }}
-    />
+    >
+<Text style = {styles.buttonText}>
+       Client
+   </Text>
+      </TouchableOpacity >
     </View>
     </View>
 
@@ -58,7 +70,45 @@ const UserTypes = (props) => {
 };
 
 
+const styles = StyleSheet.create({
+  
+  container: {
+      justifyContent: 'center',
+      alignItems: 'center',
+  },
+  fixed:{
+      width: Dimensions.get("window").width,
+  height: Dimensions.get("window").height, 
+      zIndex: -1,
+  position: "absolute",
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0
+  },
+  button:{
+    borderRadius:15,
+    backgroundColor:'#fd8c04',
+    padding:8,
+    width:width*0.5,
+    marginTop:height*0.2,
+    
+  },
+  buttonText:{
+    color:"white",
+    alignSelf:"center",
+    fontSize:16
+  }
 
-export default UserTypes;
+ 
+});
+
+
+const mapStateToProps = state => ({
+  user: user,
+  token: token
+})
+
+export default connect(mapStateToProps)(UserTypes)
 
 

@@ -7,6 +7,7 @@ import Signup from "./src/screens/signup";
 import Client from "./src/screens/mainClient";
 import Captin from "./src/screens/mainDriver";
 import Login from "./src/screens/login";
+import UserTypes from "./src/screens/userType";
 
 
 export const startApp= function(){
@@ -18,6 +19,7 @@ export const startApp= function(){
   Navigation.registerComponentWithRedux(`Client`, () => Client, Provider, store);
   Navigation.registerComponentWithRedux(`Captin`, () => Captin, Provider, store);
   Navigation.registerComponentWithRedux(`Login`, () => Login, Provider, store);
+  Navigation.registerComponentWithRedux(`UserTypes`, () => UserTypes, Provider, store);
 
 // console.log("jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj",root);
 
@@ -51,9 +53,9 @@ export const startApp= function(){
 
 let user=await AsyncStorage.getItem('user')
 let parse_user =JSON.parse(user)
-let ScreenName = 'Login'
+let ScreenName = 'UserTypes'
 if(!parse_user){
-   ScreenName='Login'
+   ScreenName='UserTypes'
 }
 else{
 if(parse_user.type=='CLIENT')
@@ -64,7 +66,7 @@ if(parse_user.type=='CLIENT')
     ScreenName='Captin'
   }
   else{
-   ScreenName='Login'
+   ScreenName='UserTypes'
   }
  }
 

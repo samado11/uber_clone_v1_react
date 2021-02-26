@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { Navigation } from 'react-native-navigation'
 import {goToScreen} from './../utils/navigation'
 import AsyncStorage from '@react-native-community/async-storage';
+import { SocialIcon } from 'react-native-elements';
 import {
   SafeAreaView,
   StyleSheet,
@@ -105,13 +106,56 @@ render() {
     
           </Image>
           <View style={{top:height*0.2}}>
+          <View style={{ flexDirection: 'column' }}>
+		<SocialIcon
+      style={{paddingHorizontal:15}}
+		  title="Sign In with facebook"
+      button
+      type="facebook"
+      onPress={ () => onFacebookButtonPress().then((d) =>{ 
+        console.log(store.getState());
+        if(store.getState().typ=="CLIENT")
+          {goToScreen('Client')}
+        else
+        {goToScreen('Captin')}
+        })}
     
-        <Button
-          title="Facebook Login"
-          onPress={ () => onFacebookButtonPress().then((d) =>{ 
-          console.log(d);
-          goToScreen('Client')})}
-        />
+		/>
+	  </View>
+ 
+    <View style={{ width: '100%'}}>
+            <SocialIcon
+              style={{paddingHorizontal:15}}
+              title="Sign In Google Plus"
+              button
+              type="google-plus-official"
+              onPress={() => {
+                alert('google');
+              }}
+            />
+          </View>
+          <View style={{ width: '100%'}}>
+            <SocialIcon
+            style={{paddingHorizontal:15}}
+              title="Sign In with Twitter"
+              button
+              type="twitter"
+              onPress={() => {
+                alert('twitter');
+              }}
+            />
+          </View>
+          <View style={{ width: '100%' }}>
+            <SocialIcon
+            style={{paddingHorizontal:15}}
+              title="Sign In with GitHub"
+              button
+              type="github"
+              onPress={() => {
+                alert('github');
+              }}
+            />
+          </View>
         </View>
         </View>
     
