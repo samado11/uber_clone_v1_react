@@ -104,7 +104,7 @@ class AnimatedMarkers extends React.Component {
         <TouchableOpacity onPress={async () => {
           await AsyncStorage.setItem('user', JSON.stringify(dummy_user));
           await AsyncStorage.setItem('token', JSON.stringify(dummy_user));
-          goToScreen('Login')
+          goToScreen('UserTypes')
         }} style={{ backgroundColor: "red", margin: 10 }}>
           <Text style={{ color: "white", alignSelf: "center" }} >logout</Text>
         </TouchableOpacity>

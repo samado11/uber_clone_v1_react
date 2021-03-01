@@ -17,7 +17,6 @@ export default  (state = initialState, action) => {
                 token: action.payload.token
             }
         case 'SET_TYPE':
-            console.log("lllllllllllllllllllllllllllll");
             return {
                 ...state,
                 typ: action.payload.typ

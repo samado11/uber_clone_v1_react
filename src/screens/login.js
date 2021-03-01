@@ -21,7 +21,7 @@ import {store} from '../reducers/index';
 import auth from '@react-native-firebase/auth';
 import { LoginManager, AccessToken } from 'react-native-fbsdk';
 const {width,height}=Dimensions.get('window')
-
+const user ={email:'',name:'',type:''}
 async function onFacebookButtonPress() {
   try{
   // Attempt login with permissions
@@ -112,12 +112,17 @@ render() {
 		  title="Sign In with facebook"
       button
       type="facebook"
-      onPress={ () => onFacebookButtonPress().then((d) =>{ 
-        console.log(typ);
+      onPress={ () => onFacebookButtonPress().then(async (d) =>{ 
+        console.log(d.additionalUserInfo.profile.email);
         if(typ=="CLIENT")
           {goToScreen('Client')}
         else
         {goToScreen('Captin')}
+        user.email=d.additionalUserInfo.profile.email;
+        user.name=d.additionalUserInfo.profile.name;
+        user.type=typ;
+        store.dispatch({type: 'LOGGED_IN',payload:{user:user} });
+        await AsyncStorage.setItem('user', JSON.stringify(user));
         })}
     
 		/>

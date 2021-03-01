@@ -38,7 +38,9 @@ class AnimatedMarkers extends React.Component {
 
   constructor(props) {
     super(props);
-     
+    suser = this.props.user;
+    user = JSON.parse(suser['_55'])
+    console.log("UUUUUUUUUUUUUUUUUUUUUUUUUU ",user.name);
     this.state = {
 
       latitude: LATITUDE,
@@ -53,6 +55,8 @@ class AnimatedMarkers extends React.Component {
         longitudeDelta: LONGITUDE_DELTA
       })
     };
+
+    
     // suser = this.props.user;
     // user = JSON.parse(suser['_55'])
     // console.log("lllllll ",user.id);
@@ -136,7 +140,7 @@ class AnimatedMarkers extends React.Component {
         <TouchableOpacity onPress={async () => {
           await AsyncStorage.setItem('user', JSON.stringify(dummy_user));
           await AsyncStorage.setItem('token', JSON.stringify(dummy_user));
-          goToScreen('Login')
+          goToScreen('UserTypes')
         }} style={{ backgroundColor: "red", margin: 10 }}>
           <Text style={{ color: "white", alignSelf: "center" }} >logout</Text>
         </TouchableOpacity>
