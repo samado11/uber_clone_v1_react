@@ -19,7 +19,9 @@ import haversine from "haversine";
 import io from "socket.io-client"
 import AsyncStorage from '@react-native-community/async-storage';
 import Geolocation from '@react-native-community/geolocation';
-
+import AntDesign from 'react-native-vector-icons/AntDesign'
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+import Entypo from 'react-native-vector-icons/Entypo'
 const LATITUDE = 37.78825;
 const LONGITUDE = -122.4324;
 let dummy_user = { "email": "NULL", "password": "NULL", "activated": true, "notification": true, "deleted": false, "name": "NULL", "phone": "NULL", "type": "NULL", "tokens": [], "createdAt": "2020-03-11T23:25:14.458Z", "updatedAt": "2020-03-11T23:25:14.458Z", "id": 21 }
@@ -110,7 +112,7 @@ class AnimatedMarkers extends React.Component {
         </TouchableOpacity>
 
         <MapView
-          style={{ flex: 1 }}
+          style={{flex:1}}
           provider={PROVIDER_GOOGLE}
           showsUserLocation
           region={{
@@ -132,6 +134,32 @@ class AnimatedMarkers extends React.Component {
             />
           ))}
         </MapView>
+        <View >
+        <View style={styles.inputBox}>
+          
+        <TouchableOpacity onPress={()=>goToScreen('Search')}>
+            <Text style={styles.inputText}>Where to?</Text>
+            </TouchableOpacity>
+             <View style={styles.timeContainer}>
+             <AntDesign name={"clockcircle"} size={16} color={'#535353'}/>
+             <Text>Now</Text>
+             <MaterialIcons name={'keyboard-arrow-down'} size={16} />
+             </View>
+        </View>
+        <View style={styles.row}>
+            <View style={styles.iconContainer}>
+            <AntDesign name={"clockcircle"} size={13} color={'#ffffff'}/>
+
+            </View>
+            <Text style={styles.destinationText}>Spin Nightclub</Text>
+        </View>
+        <View style={styles.row}>
+            <View style={[styles.iconContainer,{backgroundColor:'#218cff'}]}>
+            <Entypo name={"home"} size={13} color={'#ffffff'}/>
+            </View>
+            <Text style={styles.destinationText}>Home</Text>
+        </View>
+    </View>
       </View>
     );
   }
@@ -140,6 +168,51 @@ class AnimatedMarkers extends React.Component {
 const mapStateToProps = ({ user, token }) => ({
   user: user,
   token: token
+});
+
+
+const styles = StyleSheet.create({
+  inputBox: {
+   backgroundColor:'#e7e7e7',
+   padding:10,
+   margin:10,
+   flexDirection:'row',
+   justifyContent:'space-between',
+   alignItems:'center'
+  },
+  inputText:{
+  color:'#434343',
+  fontSize:15,
+  fontWeight:'600'
+  },
+  timeContainer:{
+      flexDirection:'row',
+      justifyContent:'space-between',
+      width:100,
+      backgroundColor:'#fff',
+      padding:10,
+      borderRadius:20
+
+  },
+  row:{
+      flexDirection:'row',
+      alignItems:'center',
+      padding:15,
+      borderBottomWidth:1,
+      borderColor:"#b3b3b3"
+  },
+  iconContainer:{
+      backgroundColor:"#b3b3b3",
+      padding:5,
+      borderRadius:25
+  },
+  destinationText:{
+    marginLeft:10,
+    fontWeight:"500",
+    fontSize:13
+  }
+
+  
 });
 
 export default connect(mapStateToProps)(AnimatedMarkers);

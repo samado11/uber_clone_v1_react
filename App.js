@@ -8,6 +8,7 @@ import Client from "./src/screens/mainClient";
 import Captin from "./src/screens/mainDriver";
 import Login from "./src/screens/login";
 import UserTypes from "./src/screens/userType";
+import Search from "./src/screens/search";
 
 
 export const startApp= function(){
@@ -20,6 +21,7 @@ export const startApp= function(){
   Navigation.registerComponentWithRedux(`Captin`, () => Captin, Provider, store);
   Navigation.registerComponentWithRedux(`Login`, () => Login, Provider, store);
   Navigation.registerComponentWithRedux(`UserTypes`, () => UserTypes, Provider, store);
+  Navigation.registerComponentWithRedux(`Search`, () => Search, Provider, store);
 
 // console.log("jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj",root);
 
