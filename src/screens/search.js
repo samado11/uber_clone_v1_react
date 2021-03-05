@@ -1,6 +1,6 @@
 import React, {useState,useEffect} from 'react';
-import { View, Text, TextInput, SafeAreaView } from 'react-native';
-import styles from './styles';
+import { StyleSheet, View, Text, TextInput, SafeAreaView } from 'react-native';
+
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
 
@@ -56,5 +56,23 @@ const Search = (props) => {
   );
 };
 
+const styles = StyleSheet.create({
+    container: {
+     padding:40,
+     backgroundColor:'#eee',
+     height:'100%'
+    },
+    TextInput:{
+        height:50,
+    backgroundColor:"#eee",
+    marginVertical:5,
+    
+    },
+ 
+ 
+ 
+    
+ });
+ 
 
 export default Search;

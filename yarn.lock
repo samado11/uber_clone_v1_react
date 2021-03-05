@@ -5041,6 +5041,11 @@
   "resolved" "https://registry.npmjs.org/lodash.camelcase/-/lodash.camelcase-4.3.0.tgz"
   "version" "4.3.0"
 
+"lodash.debounce@^4.0.8":
+  "integrity" "sha1-gteb/zCmfEAF/9XiUVMArZyk168="
+  "resolved" "https://registry.npmjs.org/lodash.debounce/-/lodash.debounce-4.0.8.tgz"
+  "version" "4.0.8"
+
 "lodash.frompairs@^4.0.1":
   "integrity" "sha1-vE5SB/onV8E25XNhTpZkUGsrG9I="
   "resolved" "https://registry.npmjs.org/lodash.frompairs/-/lodash.frompairs-4.0.1.tgz"
@@ -6346,6 +6351,11 @@
   "resolved" "https://registry.npmjs.org/qs/-/qs-6.5.2.tgz"
   "version" "6.5.2"
 
+"qs@~6.9.1":
+  "integrity" "sha512-TIRk4aqYLNoJUbd+g2lEdz5kLWIuTMRagAXxl78Q0RiVjAOugHmeKNGdd3cwo/ktpf9aL9epCfFqWDEKysUlLQ=="
+  "resolved" "https://registry.npmjs.org/qs/-/qs-6.9.6.tgz"
+  "version" "6.9.6"
+
 "range-parser@~1.2.1":
   "integrity" "sha512-Hrgsx+orqoygnmhFbKaHE6c296J+HTAQXoxEF6gNupROmmGJRoyzfG3ccAveqCBrwr/2yxQ5BVd/GTl5agOwSg=="
   "resolved" "https://registry.npmjs.org/range-parser/-/range-parser-1.2.1.tgz"
@@ -6401,6 +6411,15 @@
   "integrity" "sha512-WtuVgZ2f7cZ/hiuTECnEr5D5yBJCaKnBkRQyaKiGoe2sNHesQhBF9g9L815Z9w0HY5dUDzQIz0NUMNRJ+QxDkA=="
   "resolved" "https://registry.npmjs.org/react-native-get-location/-/react-native-get-location-1.4.2.tgz"
   "version" "1.4.2"
+
+"react-native-google-places-autocomplete@^2.1.3":
+  "integrity" "sha512-lEqGJcZDwoZKzC2Lw5nDDYdKefxHtsDXvQghPXsshGOlQCX/Z/dug/QoL1CBcppooaHKxGNmxpaudXzFz4XDkw=="
+  "resolved" "https://registry.npmjs.org/react-native-google-places-autocomplete/-/react-native-google-places-autocomplete-2.1.3.tgz"
+  "version" "2.1.3"
+  dependencies:
+    "lodash.debounce" "^4.0.8"
+    "prop-types" "^15.7.2"
+    "qs" "~6.9.1"
 
 "react-native-maps@0.26.1":
   "integrity" "sha512-p4VTB8YB5ZmOmDRCUpoHZkm05amZwhIo04AJMBbB9+JAR2PNNfpo0vceoWX0Mag4wnePkdzPomeWMplr/wimTg=="
@@ -6462,7 +6481,7 @@
     "prop-types" "^15.7.2"
     "yargs" "^16.1.1"
 
-"react-native@*", "react-native@>=0.59.0", "react-native@0.61.5":
+"react-native@*", "react-native@>= 0.59", "react-native@>=0.59.0", "react-native@0.61.5":
   "integrity" "sha512-MXqE3NoGO0T3dUKIKkIppijBhRRMpfN6ANbhMXHDuyfA+fSilRWgCwYgR/YNCC7ntECoJYikKaNTUBB0DeQy6Q=="
   "resolved" "https://registry.npmjs.org/react-native/-/react-native-0.61.5.tgz"
   "version" "0.61.5"
